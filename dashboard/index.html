@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Controle de Contas — Livro-Razão</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="masthead-eyebrow">Controle de Contas · Jan–Mai 2026</div>
+    <h1>Livro-Razão <em>Pax</em></h1>
+    <p class="masthead-sub">Lançamentos agrupados por Plano de Contas e Sub Plano. Clique em uma fatia para detalhar.</p>
+
+    <div class="search-row">
+      <input type="text" class="search-input" id="searchInput" placeholder="Buscar por descrição… (ex.: Atrium, comissão)" autocomplete="off" />
+      <div class="active-filters" id="activeFilters"><!-- chips via jQuery --></div>
+    </div>
+
+    <div class="date-filter" id="dateFilter">
+      <div class="date-filter-label">Filtrar por Data de Baixa</div>
+      <div class="date-filter-fields">
+        <label class="date-filter-field">
+          <span>De</span>
+          <input type="text" inputmode="numeric" autocomplete="off" class="date-input" id="filterDataInicio" placeholder="dd/mm/aaaa" maxlength="10" />
+        </label>
+        <span class="date-filter-sep">até</span>
+        <label class="date-filter-field">
+          <span>Até</span>
+          <input type="text" inputmode="numeric" autocomplete="off" class="date-input" id="filterDataFim" placeholder="dd/mm/aaaa" maxlength="10" />
+        </label>
+        <button type="button" class="btn-clear-filter" id="filterClearBtn">Limpar</button>
+      </div>
+      <div class="date-filter-hint" id="filterHint"></div>
+    </div>
+
+    <div class="kpi-row" id="kpiRow">
+      <!-- preenchido via jQuery -->
+    </div>
+  </header>
+
+  <section class="managerial" aria-labelledby="managerialTitle">
+    <div class="managerial-header">
+      <h2 id="managerialTitle">Análise Gerencial</h2>
+      <p>DRE gerencial e concentração de gastos por natureza — separando custo de operar, investimento em crescimento e saídas não-operacionais (equity e repasse de locação).</p>
+    </div>
+    <div class="managerial-grid">
+      <div class="dre-card" id="dreCard"><!-- preenchido via jQuery --></div>
+      <div class="expense-card">
+        <div class="expense-toolbar">
+          <div class="expense-toolbar-heading">
+            <h3>Onde estão os maiores gastos</h3>
+            <div class="expense-toolbar-controls">
+              <div class="view-switch" id="expenseViewSwitch"><!-- botões via jQuery --></div>
+              <div class="scope-toggle" id="scopeToggle"><!-- botões via jQuery --></div>
+            </div>
+          </div>
+          <div class="dimension-toggle" id="dimensionToggle"><!-- botões via jQuery --></div>
+          <p class="scope-hint" id="scopeHint"></p>
+        </div>
+        <div class="pareto-stage" id="paretoStage"><!-- preenchido via jQuery --></div>
+        <div class="treemap-stage" id="treemapStage" style="display:none;"><!-- preenchido via jQuery --></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sazonalidade" aria-labelledby="sazonalidadeTitle">
+    <div class="managerial-header">
+      <h2 id="sazonalidadeTitle">Sazonalidade</h2>
+      <p>Comparação entre meses — sempre sobre o período completo (Jan–Mai/2026), mesmo com o filtro de Data de Baixa ativo acima.</p>
+    </div>
+    <div class="sazonalidade-grid">
+      <div class="sazon-card sazon-heatmap">
+        <h3>Mês × Plano</h3>
+        <div id="heatmapStage"><!-- preenchido via jQuery --></div>
+      </div>
+      <div class="sazon-card sazon-mom">
+        <h3>Variação mês a mês</h3>
+        <div id="momStage"><!-- preenchido via jQuery --></div>
+      </div>
+    </div>
+    <div class="sazon-card sazon-small-multiples">
+      <h3>Tendência por natureza (balde)</h3>
+      <div class="small-multiples-row" id="smallMultiplesStage"><!-- preenchido via jQuery --></div>
+    </div>
+  </section>
+
+  <main class="panels">
+    <section class="panel" data-tipo="desconto">
+      <div class="panel-header">
+        <div class="panel-heading">
+          <h2>Desconto</h2>
+          <nav class="breadcrumb" data-role="breadcrumb"></nav>
+        </div>
+        <button type="button" class="btn-back" data-role="back">← Voltar</button>
+      </div>
+      <div class="panel-body">
+        <div class="chart-stage" data-role="stage"></div>
+      </div>
+    </section>
+
+    <section class="panel" data-tipo="acrescimo">
+      <div class="panel-header">
+        <div class="panel-heading">
+          <h2>Acréscimo</h2>
+          <nav class="breadcrumb" data-role="breadcrumb"></nav>
+        </div>
+        <button type="button" class="btn-back" data-role="back">← Voltar</button>
+      </div>
+      <div class="panel-body">
+        <div class="chart-stage" data-role="stage"></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="page-footer">Plano de Contas → Sub Plano → Lançamentos · dados de planilhas/lancamentos.json</div>
+</div>
+
+<div id="tooltip"></div>
+
+<script src="js/vendor/jquery.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
